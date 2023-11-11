@@ -3,38 +3,38 @@ import spacy
 from chatterbot import ChatBot
 
 
-# from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
+from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
 
 
-# def train_bot(chatbot):
-#     trainer = ListTrainer(chatbot)
-#     trainer.train([
-#         "Hi",
-#         "Welcome, friend 🤗",
-#     ])
-#     trainer.train([
-#         "Are you a plant?",
-#         "No, I'm the pot below the plant!",
-#     ])
-#
-#     return chatbot
-#
-#
-# # train chatbot with corpus
-# def train_bot_corpus(chatbot):
-#     corpus_trainer = ChatterBotCorpusTrainer(chatbot)
-#     corpus_trainer.train("chatterbot.corpus.english")
-#
-#     return chatbot
-#
-#
-# def train_chatbot_with_custom_corpus(chatbot):
-#     print("Training chatbot with custom corpus")
-#     corpus_trainer = ChatterBotCorpusTrainer(chatbot)
-#     corpus_trainer.train("chatterbot.corpus")
-#     print("Training chatbot with custom corpus done")
-#
-#     return chatbot
+def train_bot(chatbot):
+    trainer = ListTrainer(chatbot)
+    trainer.train([
+        "Hi",
+        "Welcome, friend 🤗",
+    ])
+    trainer.train([
+        "Are you a plant?",
+        "No, I'm the pot below the plant!",
+    ])
+
+    return chatbot
+
+
+# train chatbot with corpus
+def train_bot_corpus(chatbot):
+    corpus_trainer = ChatterBotCorpusTrainer(chatbot)
+    corpus_trainer.train("chatterbot.corpus.locations")
+
+    return chatbot
+
+
+def train_chatbot_with_custom_corpus(chatbot):
+    print("Training chatbot with custom corpus")
+    corpus_trainer = ChatterBotCorpusTrainer(chatbot)
+    corpus_trainer.train("chatterbot.corpus")
+    print("Training chatbot with custom corpus done")
+
+    return chatbot
 
 
 def initialize_bot():
@@ -46,12 +46,12 @@ def initialize_bot():
 
     chatbot = ChatBot("HistoMind")
 
-    # train = False
-    #
-    # if train:
-    #     # chatbot = train_bot(chatbot)
-    #     # chatbot = train_bot_corpus(chatbot)
-    #     chatbot = train_chatbot_with_custom_corpus(chatbot)
+    train = False
+
+    if train:
+        # chatbot = train_bot(chatbot)
+        # chatbot = train_bot_corpus(chatbot)
+        chatbot = train_chatbot_with_custom_corpus(chatbot)
 
     exit_conditions = (":q", "quit", "exit")
 
@@ -63,15 +63,15 @@ def get_response_chatbot(query, chatbot):
     k = chatbot.get_response(query)
     return chatbot.get_response(query)
 
-#
-# if __name__ == "__main__":
-#     chatbot, exit_conditions = initialize_bot()
-#     # print("Bot initialized")
-#     # chatbot = train_bot_corpus(chatbot)
-#     # print("Bot trained")
-#     while True:
-#         query = input("> ")
-#         if query in exit_conditions:
-#             break
-#         else:
-#             print(f"🪴 {chatbot.get_response(query)}")
+
+if __name__ == "__main__":
+    chatbot, exit_conditions = initialize_bot()
+    # print("Bot initialized")
+    chatbot = train_bot_corpus(chatbot)
+    # print("Bot trained")
+    while True:
+        query = input("> ")
+        if query in exit_conditions:
+            break
+        else:
+            print(f"🪴 {chatbot.get_response(query)}")
